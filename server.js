@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import otpModel from './db/models/otpModel.js';
 import User from './db/models/userModel.js';
-
+import cors from 'cors';
 dotenv.config();
 
 // Import variables from .env file
@@ -11,7 +11,7 @@ const { PORT, MongoURI , SMTP_PASS } = process.env;
 
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 
 mongoose.connect(MongoURI, {})
     .then(() => console.log('MongoDB connected...'))
@@ -194,7 +194,34 @@ app.post('/predictDisease', async(req, res) => {
         res.status(500).json({ error: 'Error predicting disease' });
     }
 });
+import converse from './api/mistral.js';
 
+app.post('/converse', async(req, res) => {
+    const { newMessage, messages } = req.body;
+    try{
+        // console.log(typeof(messages));
+        const response = await converse(newMessage, messages);
+
+        if(responseCheck(response[response.length-1].content)){
+            console.log("predicting disease.....................");
+            const result = await predictDisease(response[response.length-1].content);
+            res.status(200).json(result);
+            return;
+        }
+        res.status(200).json(response);
+    }
+    catch(err){
+        res.status(500).json({ error: 'Error conversing' });
+    }
+});
+
+function responseCheck(response){
+    if(response.includes("Here's a summary of your symptoms and information")){
+        return true;
+    }
+    return false;
+}
+// console.log(check("Here's a summary of your symptoms and information provided: You have a headache."));
 app.listen(PORT, ()=>{
     console.log(`Server is listening on port ${PORT}`);
 })
