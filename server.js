@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import otpModel from './db/models/otpModel.js';
 import User from './db/models/userModel.js';
 import cors from 'cors';
+import nodemailer from 'nodemailer';
 dotenv.config();
 
 // Import variables from .env file
