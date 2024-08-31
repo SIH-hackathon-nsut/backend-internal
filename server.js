@@ -216,7 +216,7 @@ app.post('/converse', async(req, res) => {
 });
 
 function responseCheck(response){
-    if(response.includes("Here's a summary of your symptoms and information")){
+    if(response.includes("Here is a summary of your symptoms and information")){
         return true;
     }
     return false;
