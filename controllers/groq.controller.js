@@ -2,7 +2,8 @@ import Groq from "groq-sdk";
 import dotenv from 'dotenv';
 dotenv.config();
 
-const groq = new Groq({ apiKey: process.env.GROQ_KEY });
+const groq = new Groq({ apiKey: "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" });
+// hard code kar raha hun man nahi hain mera
 const systemPrompt = `You are an AI assistant acting as a medical professional conducting a brief consultation. Follow these steps EXACTLY:
 1. Greet the patient ONLY ONCE with: "Hi, how are you doing today?"
 2. After the patient's first response, ask ONE follow-up question about their symptoms.
