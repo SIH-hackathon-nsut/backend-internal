@@ -195,12 +195,13 @@ app.post('/predictDisease', async(req, res) => {
         res.status(500).json({ error: 'Error predicting disease' });
     }
 });
-import converse from './api/mistral.js';
+// import converse from './api/mistral.js';
+import converse from './api/groq.js';
 
 app.post('/converse', async(req, res) => {
     const { newMessage, messages } = req.body;
     try{
-        // console.log(typeof(messages));
+        console.log(typeof(messages));
         const response = await converse(newMessage, messages);
 
         if(responseCheck(response[response.length-1].content)){
