@@ -17,9 +17,7 @@ const { PORT, MongoURI , SMTP_PASS } = process.env;
 const app = express();
 app.use(express.json());
 
-app.use(cors({
-    origin: true
-}))
+app.use(cors());
 app.use(cookieParser());
 
 mongoose.connect(MongoURI, {})
