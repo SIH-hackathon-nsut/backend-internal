@@ -19,8 +19,8 @@ Your role is to ask three questions total (including the greeting) and then summ
 
 
 async function converse(newMessage, messages) {
-    if(messages.length == 0){
-        messages.push({"role": "system", "content": systemPrompt});
+    if(messages.length == 0 || messages[0].role != "system") {
+        messages.unshift({"role": "system", "content": systemPrompt});
     }
     messages.push({"role": "user", "content": newMessage});
     const chatCompletion = await groq.chat.completions.create({

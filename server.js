@@ -33,7 +33,9 @@ app.use('/api/chatbot', chatbotRouter)
 app.use('/api/metrics',healthRouter);
 
 
-
+app.get('/', (req, res) => {
+    res.json('Backend is running');
+});
 
 app.listen(PORT, ()=>{
     console.log(`Server is listening on port ${PORT}`);
